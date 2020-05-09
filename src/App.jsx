@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ENDPOINTS,
   DAYS,
@@ -6,15 +6,18 @@ import {
   MONTH_NAMES,
   SITE,
 } from './common/constants';
+import { randomRange } from './common/util';
 
 import css from './App.module.scss';
 
 export default () => {
-  const [month, setMonth] = useState();
-  const [day, setDay] = useState();
+  const [month, setMonth] = useState(randomRange(1, 12));
+  const [day, setDay] = useState(randomRange(1, 31));
   const [image, setImage] = useState({});
   const [error, setError] = useState(null);
   const [backgroundFit, setBackgroundFit] = useState('cover');
+
+  useEffect(() => getImage(), [month, day]);
 
   const getImage = () => {
     if (month && day) {
@@ -31,6 +34,11 @@ export default () => {
           }
         });
     }
+  };
+
+  const randomise = _ => {
+    setMonth(randomRange(1, 12));
+    setDay(randomRange(1, 31));
   };
 
   const toggleBackgroundFit = _ => {
@@ -56,6 +64,7 @@ export default () => {
       ) : ''}
       <aside className={css.Controls}>
         <select
+          value={month}
           className={css.Controls__Select}
           onChange={e => setMonth(e.target.value)}
         >
@@ -65,6 +74,7 @@ export default () => {
           )}
         </select>
         <select
+          value={day}
           className={css.Controls__Select}
           onChange={e => setDay(e.target.value)}
         >
@@ -72,6 +82,7 @@ export default () => {
           {DAYS.map(d => <option key={d} value={d}>{d}</option>)}
         </select>
         <button type="button" onClick={getImage}>See your image</button>
+        <button type="button" onClick={randomise}>Randomise</button>
         <button type="button" onClick={toggleBackgroundFit}>
           Toggle full size
         </button>
