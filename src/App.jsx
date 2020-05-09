@@ -14,6 +14,7 @@ export default () => {
   const [day, setDay] = useState();
   const [image, setImage] = useState({});
   const [error, setError] = useState(null);
+  const [backgroundFit, setBackgroundFit] = useState('cover');
 
   const getImage = () => {
     if (month && day) {
@@ -32,6 +33,13 @@ export default () => {
     }
   };
 
+  const toggleBackgroundFit = _ => {
+    const CONTAIN = 'contain';
+    const COVER = 'cover';
+
+    setBackgroundFit(backgroundFit === COVER ? CONTAIN : COVER);
+  };
+
   const hasImage = image => Object.keys(image).length;
 
   const setBackground = (bg = '') => bg ? `${SITE}images/${bg}` : '';
@@ -42,6 +50,7 @@ export default () => {
         <img
           className={css.Background}
           src={setBackground(image.image)}
+          style={{ objectFit: backgroundFit }}
           alt={image.title}
         />
       ) : ''}
@@ -64,6 +73,9 @@ export default () => {
         </select>
         <button type="button" onClick={getImage}>See your image</button>
         {error ? <p>{JSON.stringify(error)}</p> : ''}
+        <button type="button" onClick={toggleBackgroundFit}>
+          Toggle full size
+        </button>
       </aside>
       {hasImage(image) ? (
         <aside className={css.Info}>
