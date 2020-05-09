@@ -1,3 +1,42 @@
-.heading {
-  text-align: center;
+.App {}
+
+.Background {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+.Controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  margin: 25px;
+  padding: 25px;
+  background-color: rgba(0, 0, 0, .3);
+
+  > * {
+    width: 50%;
+  }
+}
+
+.Controls__Error {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.Info {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 30vw;
+  margin: 25px;
+  padding: 25px;
+  background-color: rgba(0, 0, 0, .3);
+  text-align: right;
+}
+
+.Info__Heading {
+  margin-top: 0;
 }
