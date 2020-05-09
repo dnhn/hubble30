@@ -11,8 +11,8 @@ exports.handler = (event, _, callback) => {
       });
     }
 
-    callback(`id '${id}' does not exist.`);
+    callback(`Invalid input.`);
   }
 
-  callback(`id '${id}' does not exist.`);
+  callback('Empty input.');
 };

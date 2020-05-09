@@ -72,10 +72,14 @@ export default () => {
           {DAYS.map(d => <option key={d} value={d}>{d}</option>)}
         </select>
         <button type="button" onClick={getImage}>See your image</button>
-        {error ? <p>{JSON.stringify(error)}</p> : ''}
         <button type="button" onClick={toggleBackgroundFit}>
           Toggle full size
         </button>
+        {error ?
+          <p className={css.Controls__Error}>
+            {JSON.stringify(error)} Please select a valid date.
+          </p> :
+          ''}
       </aside>
       {hasImage(image) ? (
         <aside className={css.Info}>
