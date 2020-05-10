@@ -24,11 +24,14 @@ export default () => {
   useEffect(() => getImage(), [randomTime]);
 
   const getImage = () => {
-    if (!isNaN(month) && !isNaN(day)) {
+    const id = `${month}-${day}`;
+    const newId = id !== image.id;
+
+    if (!isNaN(month) && !isNaN(day) && newId) {
       setError(null);
       setImage({});
 
-      fetch(ENDPOINTS.GET_IMAGE(`${month}-${day}`))
+      fetch(ENDPOINTS.GET_IMAGE(id))
         .then(response => response.json())
         .then(data => {
           if (data.errorMessage) {

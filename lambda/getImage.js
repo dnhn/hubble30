@@ -7,7 +7,10 @@ exports.handler = (event, _, callback) => {
     if (db[id]) {
       callback(null, {
         statusCode: 200,
-        body: JSON.stringify(db[id]),
+        body: JSON.stringify({
+          id: id,
+          ...db[id],
+        }),
       });
     }
 
