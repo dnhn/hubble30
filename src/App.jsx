@@ -17,11 +17,14 @@ export default () => {
   const [error, setError] = useState(null);
   const [backgroundFit, setBackgroundFit] = useState('cover');
   const [hideUI, setHideUI] = useState(false);
+  const [randomTime, setRandomTime] = useState();
 
-  useEffect(() => getImage(), [month, day]);
+  useEffect(() => getImage(), []);
+
+  useEffect(() => getImage(), [randomTime]);
 
   const getImage = () => {
-    if (month && day) {
+    if (!isNaN(month) && !isNaN(day)) {
       setError(null);
       setImage({});
 
@@ -40,6 +43,7 @@ export default () => {
   const randomise = _ => {
     setMonth(randomRange(1, 12));
     setDay(randomRange(1, 31));
+    setRandomTime(Date.now());
   };
 
   const toggleBackgroundFit = _ => {
