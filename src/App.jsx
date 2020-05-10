@@ -94,12 +94,11 @@ export default () => {
       </aside>
       {hasImage(image) ? (
         <aside className={css.Info}>
-          <h1 className={css.Info__Heading}>{image.title}</h1>
-          <p>
-            Taken on <strong>
-              {image.date} {image.year}
-            </strong>. {image.description}
-          </p>
+          <h1 className={css.Info__Heading}>
+            {image.title}
+            <span className={css.Info__SubHeading}>{image.date} {image.year}</span>
+          </h1>
+          <p>{image.description}</p>
           <p><a
             href={`${SITE}images/${image.image}`}
             target="_blank"
@@ -113,7 +112,7 @@ export default () => {
           >
             Smaller for sharing
           </a></p>
-          <p>Read more about this image and download even larger size <a
+          <p>Read more and download higher quality image <a
             href={image.info}
             target="_blank"
             rel="noopener noreferrer"
