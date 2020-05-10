@@ -16,6 +16,7 @@ export default () => {
   const [image, setImage] = useState({});
   const [error, setError] = useState(null);
   const [backgroundFit, setBackgroundFit] = useState('cover');
+  const [hideUI, setHideUI] = useState(false);
 
   useEffect(() => getImage(), [month, day]);
 
@@ -62,41 +63,67 @@ export default () => {
           alt={image.title}
         />
       ) : ''}
-      <aside className={css.Controls}>
-        <select
-          value={month}
-          className={css.Controls__Select}
-          onChange={e => setMonth(e.target.value)}
+      <aside className={`${css.Controls} ${hideUI && css['Controls_Hidden']}`}>
+        {!hideUI && (
+          <select
+            value={month}
+            className={css.Controls__Select}
+            onChange={e => setMonth(e.target.value)}
+          >
+            <option>Month</option>
+            {MONTHS.map(m =>
+              <option key={m} value={m}>{MONTH_NAMES[m - 1]}</option>
+            )}
+          </select>
+        )}
+        <button
+          type="button"
+          onClick={_ => setHideUI(!hideUI)}
         >
-          <option>Month</option>
-          {MONTHS.map(m =>
-            <option key={m} value={m}>{MONTH_NAMES[m - 1]}</option>
-          )}
-        </select>
-        <select
-          value={day}
-          className={css.Controls__Select}
-          onChange={e => setDay(e.target.value)}
+          Toggle UI
+        </button>
+        {!hideUI && (
+          <select
+            value={day}
+            className={css.Controls__Select}
+            onChange={e => setDay(e.target.value)}
+          >
+            <option>Day</option>
+            {DAYS.map(d => <option key={d} value={d}>{d}</option>)}
+          </select>
+        )}
+        <button
+          type="button"
+          onClick={toggleBackgroundFit}
         >
-          <option>Day</option>
-          {DAYS.map(d => <option key={d} value={d}>{d}</option>)}
-        </select>
-        <button type="button" onClick={getImage}>See your image</button>
-        <button type="button" onClick={randomise}>Randomise</button>
-        <button type="button" onClick={toggleBackgroundFit}>
           Toggle full size
         </button>
-        {error ?
+        {!hideUI &&
+          <button
+            type="button"
+            onClick={getImage}
+          >
+            See your image
+          </button>}
+        <button
+          type="button"
+          onClick={randomise}
+        >
+          Randomise
+        </button>
+        {error && !hideUI ?
           <p className={css.Controls__Error}>
             {JSON.stringify(error)} Please select a valid date.
           </p> :
           ''}
       </aside>
-      {hasImage(image) ? (
+      {hasImage(image) && !hideUI ? (
         <aside className={css.Info}>
           <h1 className={css.Info__Heading}>
             {image.title}
-            <span className={css.Info__SubHeading}>{image.date} {image.year}</span>
+            <span className={css.Info__SubHeading}>
+              {image.date} {image.year}
+            </span>
           </h1>
           <p>{image.description}</p>
           <p><a
