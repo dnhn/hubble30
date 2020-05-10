@@ -1,3 +1,14 @@
+select,
+button,
+a {
+  &:focus {
+    outline-width: 2px;
+    outline-offset: 4px;
+    outline-style: dotted;
+    outline-color: yellow;
+  }
+}
+
 .App {
   width: 100vw;
   height: 100vh;

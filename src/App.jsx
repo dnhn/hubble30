@@ -68,6 +68,8 @@ export default () => {
           <select
             value={month}
             className={css.Controls__Select}
+            tabIndex={1}
+            autoFocus
             onChange={e => setMonth(e.target.value)}
           >
             <option>Month</option>
@@ -78,6 +80,7 @@ export default () => {
         )}
         <button
           type="button"
+          tabIndex={4}
           onClick={_ => setHideUI(!hideUI)}
         >
           Toggle UI
@@ -86,6 +89,7 @@ export default () => {
           <select
             value={day}
             className={css.Controls__Select}
+            tabIndex={2}
             onChange={e => setDay(e.target.value)}
           >
             <option>Day</option>
@@ -94,6 +98,7 @@ export default () => {
         )}
         <button
           type="button"
+          tabIndex={5}
           onClick={toggleBackgroundFit}
         >
           Toggle full size
@@ -101,12 +106,14 @@ export default () => {
         {!hideUI &&
           <button
             type="button"
+            tabIndex={3}
             onClick={getImage}
           >
             See your image
           </button>}
         <button
           type="button"
+          tabIndex={6}
           onClick={randomise}
         >
           Randomise
