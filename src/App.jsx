@@ -29,7 +29,6 @@ export default () => {
 
     if (!isNaN(month) && !isNaN(day) && newId) {
       setError(null);
-      setImage({});
 
       fetch(ENDPOINTS.GET_IMAGE(id))
         .then(response => response.json())
@@ -126,8 +125,11 @@ export default () => {
           Randomise
         </button>
         {error && !hideUI ?
-          <p className={css.Controls__Error}>
-            {JSON.stringify(error)} Please select a valid date.
+          <p
+            className={css.Controls__Error}
+            onClick={_ => setError(null)}
+          >
+            {error} Please select a valid date. Tap to hide this message.
           </p> :
           ''}
       </aside>
