@@ -75,7 +75,6 @@ export default () => {
             value={month}
             className={css.Controls__Select}
             tabIndex={1}
-            autoFocus
             onChange={e => setMonth(e.target.value)}
           >
             <option>Month</option>
@@ -86,6 +85,7 @@ export default () => {
         )}
         <button
           type="button"
+          className={css.Controls__ReOrder}
           tabIndex={4}
           onClick={_ => setHideUI(!hideUI)}
         >
@@ -104,6 +104,7 @@ export default () => {
         )}
         <button
           type="button"
+          className={css.Controls__ReOrder}
           tabIndex={5}
           onClick={toggleBackgroundFit}
         >
@@ -119,6 +120,7 @@ export default () => {
           </button>}
         <button
           type="button"
+          className={css.Controls__ReOrder}
           tabIndex={6}
           onClick={randomise}
         >
@@ -154,8 +156,7 @@ export default () => {
             rel="noopener noreferrer"
           >
             Smaller for sharing
-          </a></p>
-          <p>More details and higher quality <a
+          </a> — More details and higher quality <a
             href={image.info}
             target="_blank"
             rel="noopener noreferrer"

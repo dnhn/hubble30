@@ -21,11 +21,8 @@ a {
 }
 
 .Controls {
-  position: absolute;
-  top: 0;
+  position: fixed;
   right: 0;
-  width: 250px;
-  margin: 25px;
   padding: 25px;
   display: flex;
   flex-wrap: wrap;
@@ -33,26 +30,66 @@ a {
   background-color: rgba(0, 0, 0, .2);
 
   > * {
+    font-size: 1em;
+  }
+
+  > select,
+  > button {
+    margin-bottom: 8px;
     width: calc(50% - 4px);
     height: 40px;
-    font-size: 1em;
-    margin-bottom: 8px;
     border-radius: 4px;
+    background-color: white;
 
-    &:nth-last-child(-n + 3) {
-      margin-bottom: 0;
+    @media screen and (min-width: 769px) {
+      &:nth-last-child(-n + 3) {
+        margin-bottom: 0;
+      }
     }
+
+    @media screen and (max-width: 768px) {
+      width: calc(100% / 3 - 4px);
+      height: 32px;
+
+      &:nth-child(even) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @media screen and (min-width: 769px) {
+    top: 0;
+    margin: 25px;
+    width: 250px;
+  }
+
+  @media screen and (max-width: 768px) {
+    bottom: 0;
+    left: 0;
+    padding: 15px;
   }
 }
 
 .Controls_Hidden {
-  width: 125px;
+  @media screen and (min-width: 769px) {
+    width: 125px;
 
-  > * {
-    width: 100%;
+    > button {
+      width: 100%;
 
-    + * {
-      margin-top: 8px;
+      + * {
+        margin-top: 8px;
+      }
+    }
+  }
+}
+
+.Controls__ReOrder {
+  @media screen and (max-width: 768px) {
+    order: 1;
+
+    .Controls_Hidden & {
+      margin-bottom: 0;
     }
   }
 }
@@ -66,14 +103,23 @@ a {
 }
 
 .Info {
-  position: absolute;
+  position: fixed;
   right: 0;
-  bottom: 0;
-  width: 25vw;
-  margin: 25px;
   padding: 25px;
   background-color: rgba(0, 0, 0, .5);
   text-align: right;
+
+  @media screen and (min-width: 769px) {
+    bottom: 0;
+    margin: 25px;
+    width: 25vw;
+  }
+
+  @media screen and (max-width: 768px) {
+    top: 0;
+    left: 0;
+    padding: 15px;
+  }
 }
 
 .Info__Heading {

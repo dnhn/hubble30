@@ -6,6 +6,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #000;
   color: #fff;
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 a {
