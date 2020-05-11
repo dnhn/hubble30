@@ -153,7 +153,7 @@ export default () => {
           >
             Smaller for sharing
           </a></p>
-          <p>Read more and download higher quality image <a
+          <p>More details and higher quality <a
             href={image.info}
             target="_blank"
             rel="noopener noreferrer"

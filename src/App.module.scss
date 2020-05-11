@@ -35,7 +35,7 @@ a {
   > * {
     width: calc(50% - 4px);
     height: 40px;
-    font-size: 14px;
+    font-size: 1em;
     margin-bottom: 8px;
     border-radius: 4px;
 
@@ -66,7 +66,7 @@ a {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 30vw;
+  width: 25vw;
   margin: 25px;
   padding: 25px;
   background-color: rgba(0, 0, 0, .5);
