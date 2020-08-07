@@ -85,7 +85,9 @@ export default () => {
         )}
         <button
           type="button"
-          className={css.Controls__ReOrder}
+          className={
+            `${css.Controls__ReOrder} ${hideUI && css.Controls_Toggle}`
+          }
           tabIndex={4}
           onClick={_ => setHideUI(!hideUI)}
         >
@@ -104,7 +106,9 @@ export default () => {
         )}
         <button
           type="button"
-          className={css.Controls__ReOrder}
+          className={
+            `${css.Controls__ReOrder} ${backgroundFit === 'contain' && css.Controls_Toggle}`
+          }
           tabIndex={5}
           onClick={toggleBackgroundFit}
         >
