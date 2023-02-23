@@ -7,7 +7,7 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "node-sass": "^7.0.0",
+    "node-sass": "^7.0.3",
     "react-scripts": "5.0.1"
   },
   "scripts": {
