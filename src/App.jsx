@@ -14,6 +14,7 @@ const App = () => {
   const [month, setMonth] = useState(randomRange(1, 12));
   const [day, setDay] = useState(randomRange(1, 31));
   const [image, setImage] = useState({});
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [backgroundFit, setBackgroundFit] = useState('cover');
   const [hideUI, setHideUI] = useState(false);
@@ -32,6 +33,7 @@ const App = () => {
             setError(data.errorMessage);
           } else {
             setImage(data);
+            setLoading(true);
           }
         });
     }
@@ -39,7 +41,7 @@ const App = () => {
 
   useEffect(() => getImage(), [getImage]);
 
-  const randomise = _ => {
+  const randomDate = _ => {
     setMonth(randomRange(1, 12));
     setDay(randomRange(1, 31));
   };
@@ -63,8 +65,10 @@ const App = () => {
           src={setBackground(image.image)}
           style={{ objectFit: backgroundFit }}
           alt={image.title}
+          onLoad={() => setLoading(false)}
         />
       ) : ''}
+      <div className={`${css.Loading} ${loading ? css['Loading_Show'] : ''}`} />
       <aside className={`${css.Controls} ${hideUI && css['Controls_Hidden']}`}>
         {!hideUI && (
           <select
@@ -87,7 +91,7 @@ const App = () => {
           tabIndex={4}
           onClick={_ => setHideUI(!hideUI)}
         >
-          Toggle UI
+          {hideUI ? 'Show' : 'Hide'} UI
         </button>
         {!hideUI && (
           <select
@@ -102,13 +106,11 @@ const App = () => {
         )}
         <button
           type="button"
-          className={
-            `${css.Controls__ReOrder} ${backgroundFit === 'contain' && css.Controls_Toggle}`
-          }
+          className={css.Controls__ReOrder}
           tabIndex={5}
           onClick={toggleBackgroundFit}
         >
-          Toggle full size
+          {backgroundFit === 'contain' ? 'Fit page' : 'Full image'}
         </button>
         {!hideUI &&
           <button
@@ -122,16 +124,16 @@ const App = () => {
           type="button"
           className={css.Controls__ReOrder}
           tabIndex={6}
-          onClick={randomise}
+          onClick={randomDate}
         >
-          Randomise
+          Random
         </button>
         {error && !hideUI ?
           <p
             className={css.Controls__Error}
             onClick={_ => setError(null)}
           >
-            {error} Please select a valid date. Tap to hide this message.
+            {error} Please select a valid date.
           </p> :
           ''}
       </aside>

@@ -20,6 +20,80 @@ a {
   object-position: center;
 }
 
+.Loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .5);
+  opacity: 0;
+  visibility: hidden;
+  transition-property: opacity, visibility;
+  transition-duration: .2s;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    position: fixed;
+    border-radius: 50%;
+  }
+
+  &::before {
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, .75);
+    animation: loader 2s both infinite ease-in-out;
+  }
+
+  &::after {
+    top: calc(50% - 75px);
+    left: calc(50% - 75px);
+    width: 150px;
+    height: 150px;
+    background-color: rgba(255, 255, 255, .5);
+    animation: loader2 2s both infinite ease-in-out;
+  }
+}
+
+.Loading_Show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes loader {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(4);
+    opacity: .5;
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes loader2 {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: .5;
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 .Controls {
   position: fixed;
   right: 0;
