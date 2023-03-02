@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   ENDPOINTS,
   DAYS,
@@ -10,20 +10,15 @@ import { randomRange } from './common/util';
 
 import css from './App.module.scss';
 
-export default () => {
+const App = () => {
   const [month, setMonth] = useState(randomRange(1, 12));
   const [day, setDay] = useState(randomRange(1, 31));
   const [image, setImage] = useState({});
   const [error, setError] = useState(null);
   const [backgroundFit, setBackgroundFit] = useState('cover');
   const [hideUI, setHideUI] = useState(false);
-  const [randomTime, setRandomTime] = useState();
 
-  useEffect(() => getImage(), []);
-
-  useEffect(() => getImage(), [randomTime]);
-
-  const getImage = () => {
+  const getImage = useCallback(() => {
     const id = `${month}-${day}`;
     const newId = id !== image.id;
 
@@ -40,12 +35,13 @@ export default () => {
           }
         });
     }
-  };
+  }, [month, day, image]);
+
+  useEffect(() => getImage(), [getImage]);
 
   const randomise = _ => {
     setMonth(randomRange(1, 12));
     setDay(randomRange(1, 31));
-    setRandomTime(Date.now());
   };
 
   const toggleBackgroundFit = _ => {
@@ -172,3 +168,5 @@ export default () => {
     </main>
   );
 };
+
+export default App;
