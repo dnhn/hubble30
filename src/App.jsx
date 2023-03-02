@@ -4,6 +4,7 @@ import {
   DAYS,
   MONTHS,
   MONTH_NAMES,
+  INVALID_DATES,
   SITE,
 } from './common/constants';
 import { randomRange } from './common/util';
@@ -22,6 +23,11 @@ const App = () => {
   const getImage = useCallback(() => {
     const id = `${month}-${day}`;
     const newId = id !== image.id;
+
+    if (INVALID_DATES.includes(id)) {
+      setError('Invalid input.');
+      return;
+    }
 
     if (!isNaN(month) && !isNaN(day) && newId) {
       setError(null);
@@ -42,8 +48,16 @@ const App = () => {
   useEffect(() => getImage(), [getImage]);
 
   const randomDate = _ => {
-    setMonth(randomRange(1, 12));
-    setDay(randomRange(1, 31));
+    let month = randomRange(1, 12);
+    let day = randomRange(1, 31);
+
+    while (INVALID_DATES.includes(`${month}-${day}`)) {
+      month = randomRange(1, 12);
+      day = randomRange(1, 31);
+    }
+
+    setMonth(month);
+    setDay(day);
   };
 
   const toggleBackgroundFit = _ => {
