@@ -1,6 +1,6 @@
 const db = require('./db');
 
-exports.handler = async (event, context) => {
+exports.handler = async event => {
   const { id } = event.queryStringParameters;
 
   if (id) {
@@ -17,7 +17,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 400,
       body: JSON.stringify({
-        errorMessage: 'Invalid input.',
+        errorMessage: 'INVALID_DATE',
       }),
     };
   }
@@ -25,7 +25,7 @@ exports.handler = async (event, context) => {
   return {
     statusCode: 400,
     body: JSON.stringify({
-      errorMessage: 'Empty input.',
+      errorMessage: 'EMPTY_INPUT',
     }),
   };
 };

@@ -29,6 +29,11 @@ export const INVALID_DATES = [
   '11-31',
 ];
 
+export const ERROR_MESSAGES = {
+  EMPTY_DATE: 'Empty input. Please select month and day.',
+  INVALID_DATE: 'Invalid input. Please select a valid date.',
+};
+
 export const ENDPOINTS = {
   GET_IMAGE: id => `.netlify/functions/getImage?id=${id}`,
 };

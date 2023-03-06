@@ -5,6 +5,7 @@ import {
   MONTHS,
   MONTH_NAMES,
   INVALID_DATES,
+  ERROR_MESSAGES,
   SITE,
 } from './common/constants';
 import { randomRange } from './common/util';
@@ -23,8 +24,13 @@ const App = () => {
     const id = `${month}-${day}`;
     const newId = id !== image.id;
 
+    if (isNaN(month) || isNaN(day)) {
+      setError(ERROR_MESSAGES.EMPTY_DATE);
+      return;
+    }
+
     if (INVALID_DATES.includes(id)) {
-      setError('Invalid input.');
+      setError(ERROR_MESSAGES.INVALID_DATE);
       return;
     }
 
@@ -35,7 +41,7 @@ const App = () => {
         .then(response => response.json())
         .then(data => {
           if (data.errorMessage) {
-            setError(data.errorMessage);
+            setError(ERROR_MESSAGES[data.errorMessage]);
           } else {
             setImage(data);
             setLoading(true);
@@ -135,7 +141,7 @@ const App = () => {
             className={css.Controls__Error}
             onClick={_ => setError(null)}
           >
-            {error} Please select a valid date.
+            {error}
           </p>
         }
       </aside>
