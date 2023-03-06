@@ -1,9 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   ENDPOINTS,
-  DAYS,
-  MONTHS,
-  MONTH_NAMES,
   INVALID_DATES,
   ERROR_MESSAGES,
   SITE,
@@ -94,8 +91,10 @@ const App = () => {
             onChange={e => setMonth(e.target.value)}
           >
             <option>Month</option>
-            {MONTHS.map(m =>
-              <option key={m} value={m}>{MONTH_NAMES[m - 1]}</option>
+            {[...Array(12)].map((m, i) =>
+              <option key={i} value={i + 1}>
+                {new Intl.DateTimeFormat('en', { month: 'long' }).format(new Date(`'${i + 1}'`))}
+              </option>
             )}
           </select>
         }
@@ -117,7 +116,9 @@ const App = () => {
             onChange={e => setDay(e.target.value)}
           >
             <option>Day</option>
-            {DAYS.map(d => <option key={d} value={d}>{d}</option>)}
+            {[...Array(31)].map((d, i) =>
+              <option key={i} value={i + 1}>{i + 1}</option>
+            )}
           </select>
         }
         {!hideUI &&
