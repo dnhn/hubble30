@@ -28,69 +28,44 @@ a {
   left: 0;
   background-color: rgba(0, 0, 0, .5);
   opacity: 0;
-  visibility: hidden;
-  transition-property: opacity, visibility;
-  transition-duration: .2s;
-
-  &::before,
-  &::after {
-    content: '';
-    display: block;
-    position: fixed;
-    border-radius: 50%;
-  }
+  transition: opacity .5s;
 
   &::before {
+    content: '';
+    box-sizing: border-box;
+    display: block;
+    position: fixed;
     top: calc(50% - 25px);
     left: calc(50% - 25px);
+    border: 5px solid transparent;
+    border-top-color: #fc3d21;
+    border-bottom-color: #fc3d21;
+    border-radius: 50%;
     width: 50px;
     height: 50px;
-    background-color: rgba(255, 255, 255, .75);
-    animation: loader 2s both infinite ease-in-out;
-  }
-
-  &::after {
-    top: calc(50% - 75px);
-    left: calc(50% - 75px);
-    width: 150px;
-    height: 150px;
-    background-color: rgba(255, 255, 255, .5);
-    animation: loader2 2s both infinite ease-in-out;
+    animation: loader 2s linear infinite;
   }
 }
 
 .Loading_Show {
   opacity: 1;
-  visibility: visible;
 }
 
 @keyframes loader {
   0% {
-    transform: scale(1);
+    transform: rotate(0deg);
   }
 
-  50% {
-    transform: scale(4);
-    opacity: .5;
+  25% {
+    transform: rotate(360deg);
   }
 
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes loader2 {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.5);
-    opacity: .5;
+  75% {
+    transform: rotate(720deg);
   }
 
   100% {
-    transform: scale(1);
+    transform: rotate(1080deg);
   }
 }
 
