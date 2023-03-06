@@ -1,0 +1,28 @@
+.Info {
+  position: fixed;
+  right: 0;
+  padding: 25px;
+  background-color: rgba(0, 0, 0, .5);
+  text-align: right;
+
+  @media screen and (min-width: 769px) {
+    bottom: 0;
+    margin: 25px;
+    width: 60ch;
+  }
+
+  @media screen and (max-width: 768px) {
+    top: 0;
+    left: 0;
+    padding: 15px;
+  }
+}
+
+.Info__Heading {
+  margin-top: 0;
+}
+
+.Info__SubHeading {
+  display: block;
+  font-size: .8em;
+}

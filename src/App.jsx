@@ -12,6 +12,10 @@ import { randomRange } from './common/util';
 
 import css from './App.module.scss';
 
+import Image from './components/Image';
+import Loading from './components/Loading';
+import Info from './components/Info';
+
 const App = () => {
   const [month, setMonth] = useState(randomRange(1, 12));
   const [day, setDay] = useState(randomRange(1, 31));
@@ -72,16 +76,15 @@ const App = () => {
   return (
     <main className={css.App}>
       {hasImage(image) &&
-        <img
-          className={css.Background}
-          src={setBackground(image.image)}
-          style={{ objectFit: hideUI ? 'cover' : 'contain' }}
-          alt={image.title}
-          onLoad={() => setLoading(false)}
-          onClick={_ => setHideUI(!hideUI)}
+        <Image
+          image={image}
+          hideUI={hideUI}
+          setBackground={setBackground}
+          setLoading={setLoading}
+          setHideUI={setHideUI}
         />
       }
-      <div className={`${css.Loading} ${loading && css['Loading_Show']}`} />
+      <Loading loading={loading} />
       <aside className={`${css.Controls} ${hideUI && css['Controls_Hidden']}`}>
         {!hideUI &&
           <select
@@ -145,36 +148,7 @@ const App = () => {
           </p>
         }
       </aside>
-      {hasImage(image) && !hideUI &&
-        <aside className={css.Info}>
-          <h1 className={css.Info__Heading}>
-            {image.title}
-            <span className={css.Info__SubHeading}>
-              {image.date} {image.year}
-            </span>
-          </h1>
-          <p>{image.description}</p>
-          <p>Download: <a
-            href={`${SITE}images/${image.image}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Large
-          </a> — <a
-            href={`${SITE}images-social/${image.image}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Small
-          </a> — <a
-            href={image.info}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            More details and higher quality
-          </a>.</p>
-        </aside>
-      }
+      {hasImage(image) && !hideUI && <Info image={image} /> }
     </main>
   );
 };
