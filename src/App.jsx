@@ -17,7 +17,6 @@ const App = () => {
   const [image, setImage] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [backgroundFit, setBackgroundFit] = useState('cover');
   const [hideUI, setHideUI] = useState(false);
 
   const getImage = useCallback(() => {
@@ -60,31 +59,25 @@ const App = () => {
     setDay(day);
   };
 
-  const toggleBackgroundFit = _ => {
-    const CONTAIN = 'contain';
-    const COVER = 'cover';
-
-    setBackgroundFit(backgroundFit === COVER ? CONTAIN : COVER);
-  };
-
   const hasImage = image => Object.keys(image).length;
 
   const setBackground = (bg = '') => bg ? `${SITE}images/${bg}` : '';
 
   return (
     <main className={css.App}>
-      {hasImage(image) ? (
+      {hasImage(image) &&
         <img
           className={css.Background}
           src={setBackground(image.image)}
-          style={{ objectFit: backgroundFit }}
+          style={{ objectFit: hideUI ? 'cover' : 'contain' }}
           alt={image.title}
           onLoad={() => setLoading(false)}
+          onClick={_ => setHideUI(!hideUI)}
         />
-      ) : ''}
-      <div className={`${css.Loading} ${loading ? css['Loading_Show'] : ''}`} />
+      }
+      <div className={`${css.Loading} ${loading && css['Loading_Show']}`} />
       <aside className={`${css.Controls} ${hideUI && css['Controls_Hidden']}`}>
-        {!hideUI && (
+        {!hideUI &&
           <select
             value={month}
             className={css.Controls__Select}
@@ -96,7 +89,7 @@ const App = () => {
               <option key={m} value={m}>{MONTH_NAMES[m - 1]}</option>
             )}
           </select>
-        )}
+        }
         <button
           type="button"
           className={
@@ -107,7 +100,7 @@ const App = () => {
         >
           {hideUI ? 'Show' : 'Hide'} UI
         </button>
-        {!hideUI && (
+        {!hideUI &&
           <select
             value={day}
             className={css.Controls__Select}
@@ -117,41 +110,36 @@ const App = () => {
             <option>Day</option>
             {DAYS.map(d => <option key={d} value={d}>{d}</option>)}
           </select>
-        )}
-        <button
-          type="button"
-          className={css.Controls__ReOrder}
-          tabIndex={5}
-          onClick={toggleBackgroundFit}
-        >
-          {backgroundFit === 'contain' ? 'Fit page' : 'Full image'}
-        </button>
+        }
         {!hideUI &&
           <button
             type="button"
             tabIndex={3}
             onClick={getImage}
+            disabled={INVALID_DATES.includes(`${month}-${day}`)}
           >
-            See your image
-          </button>}
+            Get image
+          </button>
+        }
         <button
           type="button"
           className={css.Controls__ReOrder}
           tabIndex={6}
           onClick={randomDate}
+          title="Get a random image"
         >
           Random
         </button>
-        {error && !hideUI ?
+        {error && !hideUI &&
           <p
             className={css.Controls__Error}
             onClick={_ => setError(null)}
           >
             {error} Please select a valid date.
-          </p> :
-          ''}
+          </p>
+        }
       </aside>
-      {hasImage(image) && !hideUI ? (
+      {hasImage(image) && !hideUI &&
         <aside className={css.Info}>
           <h1 className={css.Info__Heading}>
             {image.title}
@@ -160,27 +148,27 @@ const App = () => {
             </span>
           </h1>
           <p>{image.description}</p>
-          <p><a
+          <p>Download: <a
             href={`${SITE}images/${image.image}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Full image
+            Large
           </a> — <a
             href={`${SITE}images-social/${image.image}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Smaller for sharing
-          </a> — More details and higher quality <a
+            Small
+          </a> — <a
             href={image.info}
             target="_blank"
             rel="noopener noreferrer"
           >
-            here
+            More details and higher quality
           </a>.</p>
         </aside>
-      ) : ''}
+      }
     </main>
   );
 };
