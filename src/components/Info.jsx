@@ -31,7 +31,7 @@ const Info = ({ image }) => {
         rel="noopener noreferrer"
       >
         More details and higher quality
-      </a>.</p>
+      </a></p>
     </aside>
   );
 };

@@ -11,6 +11,7 @@ import css from './App.module.scss';
 
 import Image from './components/Image';
 import Loading from './components/Loading';
+import Controls from './components/Controls';
 import Info from './components/Info';
 
 const App = () => {
@@ -84,73 +85,16 @@ const App = () => {
         />
       }
       <Loading loading={loading} />
-      <aside className={`${css.Controls} ${hideUI && css['Controls_Hidden']}`}>
-        {!hideUI &&
-          <select
-            value={month}
-            className={css.Controls__Select}
-            tabIndex={1}
-            onChange={e => setMonth(e.target.value)}
-          >
-            <option>Month</option>
-            {[...Array(12)].map((m, i) =>
-              <option key={i} value={i + 1}>
-                {new Intl.DateTimeFormat('en', { month: 'long' }).format(new Date(`'${i + 1}'`))}
-              </option>
-            )}
-          </select>
-        }
-        <button
-          type="button"
-          className={
-            `${css.Controls__ReOrder} ${hideUI && css.Controls_Toggle}`
-          }
-          tabIndex={4}
-          onClick={_ => setHideUI(!hideUI)}
-        >
-          {hideUI ? 'Show' : 'Hide'} UI
-        </button>
-        {!hideUI &&
-          <select
-            value={day}
-            className={css.Controls__Select}
-            tabIndex={2}
-            onChange={e => setDay(e.target.value)}
-          >
-            <option>Day</option>
-            {[...Array(31)].map((d, i) =>
-              <option key={i} value={i + 1}>{i + 1}</option>
-            )}
-          </select>
-        }
-        {!hideUI &&
-          <button
-            type="button"
-            tabIndex={3}
-            onClick={getImage}
-            disabled={INVALID_DATES.includes(`${month}-${day}`)}
-          >
-            Get image
-          </button>
-        }
-        <button
-          type="button"
-          className={css.Controls__ReOrder}
-          tabIndex={6}
-          onClick={randomDate}
-          title="Get a random image"
-        >
-          Random
-        </button>
-        {error && !hideUI &&
-          <p
-            className={css.Controls__Error}
-            onClick={_ => setError(null)}
-          >
-            {error}
-          </p>
-        }
-      </aside>
+      <Controls
+        hideUI={hideUI}
+        setHideUI={setHideUI}
+        month={month}
+        setMonth={setMonth}
+        day={day}
+        setDay={setDay}
+        randomDate={randomDate}
+        error={error}
+      />
       {hasImage(image) && !hideUI && <Info image={image} /> }
     </main>
   );

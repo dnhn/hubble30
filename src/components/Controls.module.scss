@@ -1,0 +1,98 @@
+.Hamburger {
+  cursor: pointer;
+  margin: 2rem 0 2rem 2rem;
+  border: 0;
+  width: 44px;
+  height: 25px;
+  padding: 0;
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.Controls {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-right: 2rem;
+
+  &:not(.Controls_Hidden) {
+    background-color: #323a45;
+  }
+
+  * {
+    font-family: inherit;
+    font-size: 1em;
+    line-height: 1;
+  }
+
+  select,
+  .button {
+    background-color: white;
+  }
+
+  select {
+    padding: 1rem .7rem;
+  }
+
+  .button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    box-shadow: inset 0 0 0 2px #105bd8;
+    color: #105bd8;
+    font-weight: bold;
+
+    &:hover {
+      box-shadow: inset 0 0 0 2px #0b3d91;
+      color: #0b3d91;
+    }
+  }
+
+  @media (min-width: 769px) {
+    top: 0;
+  }
+
+  @media (max-width: 768px) {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    padding: 2rem;
+  }
+}
+
+.Controls__Toggle {
+  display: flex;
+  gap: 1rem;
+}
+
+.Controls__Random {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 4rem;
+}
+
+.Controls__Error {
+  margin: 0;
+  color: yellow;
+  text-align: center;
+  font-weight: bold;
+}
