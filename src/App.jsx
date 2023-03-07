@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
+  SITE_TITLE,
   ENDPOINTS,
   INVALID_DATES,
   ERROR_MESSAGES,
@@ -49,12 +50,18 @@ const App = () => {
           } else {
             setImage(data);
             setLoading(true);
+
+            document.title = `${data.title} — ${SITE_TITLE}`;
+
+            const url = new URL(window.location);
+            url.searchParams.set('date', data.id);
+            window.history.pushState({}, '', url);
           }
         });
     }
   }, [month, day, image]);
 
-  useEffect(() => getImage(), [getImage]);
+  useEffect(() => getImage());
 
   const randomDate = _ => {
     let month = randomRange(1, 12);

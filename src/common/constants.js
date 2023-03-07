@@ -1,3 +1,5 @@
+export const SITE_TITLE = 'Hubble30 — What did Hubble see on your birthday?';
+
 export const INVALID_DATES = [
   '2-30',
   '2-31',
