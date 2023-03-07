@@ -14,8 +14,10 @@ import Loading from './components/Loading';
 import Info from './components/Info';
 
 const App = () => {
-  const [month, setMonth] = useState(randomRange(1, 12));
-  const [day, setDay] = useState(randomRange(1, 31));
+  const dateParams = new URLSearchParams(window.location.search).get('date');
+
+  const [month, setMonth] = useState(dateParams ? dateParams.split('-')[0] : randomRange(1, 12));
+  const [day, setDay] = useState(dateParams ? dateParams.split('-')[1] : randomRange(1, 31));
   const [image, setImage] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
