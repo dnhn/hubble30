@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import css from './Controls.module.scss';
 
@@ -18,11 +18,12 @@ const Controls = ({
         className={css.Hamburger}
         type='button'
         onClick={_ => setHideUI(!hideUI)}
+        aria-label="Toggle user interface"
       >
         <span></span><span></span><span></span>
       </button>
       {!hideUI &&
-        <div className={css.Controls__Toggle}>
+        <Fragment>
           <select
             value={month}
             className={css.Controls__Select}
@@ -51,7 +52,7 @@ const Controls = ({
           >
             🔀
           </button>
-        </div>
+        </Fragment>
       }
       {error && !hideUI && <p className={css.Controls__Error}>{error}</p>}
     </aside>
