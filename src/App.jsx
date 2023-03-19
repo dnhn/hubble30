@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SITE_TITLE,
   ENDPOINTS,
@@ -18,14 +18,14 @@ import Info from './components/Info';
 const App = () => {
   const dateParams = new URLSearchParams(window.location.search).get('date');
 
-  const [month, setMonth] = useState(dateParams ? dateParams.split('-')[0] : randomRange(1, 12));
-  const [day, setDay] = useState(dateParams ? dateParams.split('-')[1] : randomRange(1, 31));
+  const [month, setMonth] = useState(dateParams ? dateParams.split('-')[0] : new Date().getMonth() + 1);
+  const [day, setDay] = useState(dateParams ? dateParams.split('-')[1] : new Date().getDate());
   const [image, setImage] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hideUI, setHideUI] = useState(false);
 
-  const getImage = useCallback(() => {
+  useEffect(() => {
     const id = `${month}-${day}`;
     const newId = id !== image.id;
 
@@ -50,7 +50,6 @@ const App = () => {
           } else {
             setImage(data);
             setLoading(true);
-
             document.title = `${data.title} — ${SITE_TITLE}`;
 
             const url = new URL(window.location);
@@ -60,8 +59,6 @@ const App = () => {
         });
     }
   }, [month, day, image]);
-
-  useEffect(() => getImage());
 
   const randomDate = _ => {
     let month = randomRange(1, 12);
@@ -102,7 +99,7 @@ const App = () => {
         randomDate={randomDate}
         error={error}
       />
-      {hasImage(image) && !hideUI && <Info image={image} /> }
+      {hasImage(image) && !hideUI && <Info image={image} />}
     </main>
   );
 };
