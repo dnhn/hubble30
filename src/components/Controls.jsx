@@ -14,47 +14,56 @@ const Controls = ({
 }) => {
   return (
     <aside className={`${css.Controls} ${hideUI && css['Controls_Hidden']}`}>
-      <button
-        className={css.Hamburger}
-        type='button'
-        onClick={_ => setHideUI(!hideUI)}
-        aria-label="Toggle user interface"
-      >
-        <span></span><span></span><span></span>
-      </button>
+      <div className={css.Controls__Controls}>
+        <button
+          className={css.Hamburger}
+          type='button'
+          onClick={_ => setHideUI(!hideUI)}
+          aria-label="Toggle user interface"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        {!hideUI &&
+          <Fragment>
+            <select
+              value={month}
+              className={css.Controls__Select}
+              onChange={e => setMonth(e.target.value)}
+            >
+              {[...Array(12)].map((m, i) =>
+                <option key={i} value={i + 1}>
+                  {new Intl.DateTimeFormat('en', { month: 'short' }).format(new Date(`'${i + 1}'`))}
+                </option>
+              )}
+            </select>
+            <select
+              value={day}
+              className={css.Controls__Select}
+              onChange={e => setDay(e.target.value)}
+            >
+              {[...Array(31)].map((d, i) =>
+                <option key={i} value={i + 1}>{i + 1}</option>
+              )}
+            </select>
+            <button
+              type="button"
+              className={css.Controls__Random}
+              onClick={randomDate}
+              title="Get a random image"
+            >
+              🔀
+            </button>
+          </Fragment>
+        }
+        {error && !hideUI && <p className={css.Controls__Error}>{error}</p>}
+      </div>
       {!hideUI &&
-        <Fragment>
-          <select
-            value={month}
-            className={css.Controls__Select}
-            onChange={e => setMonth(e.target.value)}
-          >
-            {[...Array(12)].map((m, i) =>
-              <option key={i} value={i + 1}>
-                {new Intl.DateTimeFormat('en', { month: 'short' }).format(new Date(`'${i + 1}'`))}
-              </option>
-            )}
-          </select>
-          <select
-            value={day}
-            className={css.Controls__Select}
-            onChange={e => setDay(e.target.value)}
-          >
-            {[...Array(31)].map((d, i) =>
-              <option key={i} value={i + 1}>{i + 1}</option>
-            )}
-          </select>
-          <button
-            type="button"
-            className={css.Controls__Random}
-            onClick={randomDate}
-            title="Get a random image"
-          >
-            🔀
-          </button>
-        </Fragment>
+        <div className={css.Controls__Info}>
+          <strong>U</strong>: toggle UI<br />
+          <strong>I</strong>: random image<br />
+          <strong>T</strong>: today’s image<br />
+        </div>
       }
-      {error && !hideUI && <p className={css.Controls__Error}>{error}</p>}
     </aside>
   );
 };

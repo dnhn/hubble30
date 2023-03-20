@@ -16,8 +16,10 @@ import Controls from './components/Controls';
 import Info from './components/Info';
 
 const App = () => {
+  // Get date from URL
   const dateParams = new URLSearchParams(window.location.search).get('date');
 
+  // Unless get current date
   const [month, setMonth] = useState(dateParams ? dateParams.split('-')[0] : new Date().getMonth() + 1);
   const [day, setDay] = useState(dateParams ? dateParams.split('-')[1] : new Date().getDate());
   const [image, setImage] = useState({});
@@ -29,16 +31,19 @@ const App = () => {
     const id = `${month}-${day}`;
     const newId = id !== image.id;
 
+    // Empty month or day
     if (isNaN(month) || isNaN(day)) {
       setError(ERROR_MESSAGES.EMPTY_DATE);
       return;
     }
 
+    // Invalid date
     if (INVALID_DATES.includes(id)) {
       setError(ERROR_MESSAGES.INVALID_DATE);
       return;
     }
 
+    // If valid and new date then get new image
     if (!isNaN(month) && !isNaN(day) && newId) {
       setError(null);
 
@@ -50,8 +55,10 @@ const App = () => {
           } else {
             setImage(data);
             setLoading(true);
+            // Set page title
             document.title = `${data.title} — ${SITE_TITLE}`;
 
+            // Update URL parameter with new date
             const url = new URL(window.location);
             url.searchParams.set('date', data.id);
             window.history.pushState({}, '', url);
@@ -60,10 +67,31 @@ const App = () => {
     }
   }, [month, day, image]);
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    const onKeyDown = e => {
+      switch (e.key) {
+        case 'u': setHideUI(!hideUI); break;
+        case 'i': randomDate(); break;
+        case 't':
+          setMonth(new Date().getMonth() + 1);
+          setDay(new Date().getDate());
+        default:
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  });
+
   const randomDate = _ => {
     let month = randomRange(1, 12);
     let day = randomRange(1, 31);
 
+    // Random until date is valid
     while (INVALID_DATES.includes(`${month}-${day}`)) {
       month = randomRange(1, 12);
       day = randomRange(1, 31);
