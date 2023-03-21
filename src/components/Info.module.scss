@@ -21,6 +21,10 @@
   margin-top: 0;
   font-size: 1.25em;
 
+  @media (max-width: 767px) {
+    padding-left: 45px;
+  }
+
   @media (min-width: 768px) {
     font-size: 1.5em;
   }

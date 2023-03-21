@@ -14,6 +14,7 @@ import Image from './components/Image';
 import Loading from './components/Loading';
 import Controls from './components/Controls';
 import Info from './components/Info';
+import GitHub from './components/GitHub';
 
 const App = () => {
   // Get date from URL
@@ -128,6 +129,7 @@ const App = () => {
         error={error}
       />
       {hasImage(image) && !hideUI && <Info image={image} />}
+      {!hideUI && <GitHub />}
     </main>
   );
 };
