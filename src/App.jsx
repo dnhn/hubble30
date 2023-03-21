@@ -77,6 +77,7 @@ const App = () => {
         case 't':
           setMonth(new Date().getMonth() + 1);
           setDay(new Date().getDate());
+          break;
         default:
       }
     }
